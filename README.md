@@ -23,9 +23,9 @@ EMAIL_USER = login_email_for_sending_account
 EMAIL_PASS = login_password_for_sending_account
 TO_EMAIL = receiving_email_address
 ```
-3. Download and install the relevant chromedriver.exe and place it into the root folder.
+3. Update the SMTP information in the ```email()``` method. If using Gmail, you must grant less secure apps access to your account under your Google account settings.
 
-4. Update the SMTP information in the ```email()``` method. If using Gmail, you must grant less secure apps access to your account under your Google account settings.
+4. Download and install the relevant chromedriver.exe and place it into the root folder.
 
 
 ## Authors
