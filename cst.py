@@ -39,7 +39,7 @@ options.add_argument("--disable-dev-shm-usage")
 options.add_argument("--window-size=1920,1080")
 options.add_argument('--ignore-certificate-errors')
 
-url = 'https://shop.countdown.co.nz/shop/productdetails?stockcode=281634&name=alpine-cheese-block-edam'
+url = os.environ['URL']
 stock_code = re.sub("[^0-9]", "", url)
 
 driver = start_chrome(url, headless=True, options=options)
@@ -47,41 +47,32 @@ driver.set_page_load_timeout(15)
 time.sleep(3)
 driver.save_screenshot("cst_screenshot.png")
 
-#potentialy look at using selenium to get the aria-label for the price
-
+# Get the title
 try:
     title = driver.find_element_by_xpath('//*[@id="product-details"]/div[2]/h1').text
 except:
     title = 'Countdown Item '
 
-"""
+# Get and format the price
 try:
-    price2 = driver.find_element_by_id(f'product-{stock_code}-price').text
-    print('selenium price: ' + price2)
+    uf_price = driver.find_element_by_id(f'product-{stock_code}-price').text
+    f_price = re.sub("[^0-9]", "", uf_price)
 
-    prices = find_all(S(f'#product-{stock_code}-price'))
-    price = [item.web_element.text for item in prices]
-    str_price = re.sub("[^0-9]", "", str(price))
-
-    firstpart, secondpart = str_price[:int(len(str_price)/2)], str_price[int(len(str_price)/2):]
-
-    full_price = f'${firstpart}.{secondpart}'
+    dollars, cents = f_price[:int(len(f_price)/2)], f_price[int(len(f_price)/2):]
+    full_price = f'${dollars}.{cents}'
 except:
-    print('No price')
+    print('Error: Unable to find price')
     full_price = ''
-    """
 
-"""
-if Text('Save $').exists():
-    print(f'{title} on special for {full_price}')
-#    email()
-else: print('Item not on special')
-"""
+# Get whether the item is on special
+try:
+    is_on_special = driver.find_element_by_xpath('//*[@id="product-details"]/div[2]/div[2]/product-price/div/span[2]').text
+except: 
+    is_on_special = ''
 
-if (driver.find_element_by_xpath('//*[@id="product-details"]/div[2]/div[2]/product-price/div/span[2]').text):
-    print('Item on special')
-else:
-    print('Item not on special')
-
+if len(is_on_special) > 0:
+    print(f'{title} is on special for {full_price}')
+    email()
+else: print(f'{title} not on special') 
 
 kill_browser()
