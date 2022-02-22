@@ -6,7 +6,7 @@ A python script that emails the user if an item at Countdown is on special.
 
 ### Usage
 
-1. Run the file with ```py cst.py```
+1. Update the ```url``` variable with the product you wish to monitor and run the file with ```py cst.py```
 
 How you wish to utilise the script is up to you; either host it on a server and run it on a schedule, or incorporate it into a web app.
 
