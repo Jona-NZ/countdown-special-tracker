@@ -4,6 +4,9 @@ A python script that emails the user if an item at Countdown is on special.
 
 <img src="https://i.imgur.com/tzlDfQZ.png" width="400">
 
+### Usage
+
+How you wish to utilise the script is up to you; you can host it on a server and run it on a schedule, or incorporate it into a web app.
 
 ### Requirements
 
