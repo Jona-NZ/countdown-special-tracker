@@ -1,2 +1,2 @@
 # countdown-special-tracker
- Alerts user via email if an item they bookmark goes on special.
+A python script that emails the user if an item at Countdown is on special.
