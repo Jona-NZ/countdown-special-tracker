@@ -6,20 +6,26 @@ A python script that emails the user if an item at Countdown is on special.
 
 ### Usage
 
+1. Run the file with ```py cst.py```
+
 How you wish to utilise the script is up to you; either host it on a server and run it on a schedule, or incorporate it into a web app.
 
 ### Requirements
 
-1. Ensure you have a `.env` file in the root directory prior to running the script:
+1. After cloning the repo, import the required modules using:
+```
+pip install -r requirements.txt
+```
+
+2. Ensure you have a `.env` file in the root directory prior to running the script:
 ```
 EMAIL_USER = login_email_for_sending_account
 EMAIL_PASS = login_password_for_sending_account
 TO_EMAIL = receiving_email_address
 ```
+3. Download and install the relevant chromedriver.exe and place it into the root folder.
 
-2. Download and install the relevant chromedriver.exe and place it into the root folder.
-
-3. Update the SMTP information in the ```email()``` method. If using Gmail, you must grant less secure apps access to your account under your Google account settings.
+4. Update the SMTP information in the ```email()``` method. If using Gmail, you must grant less secure apps access to your account under your Google account settings.
 
 
 ## Authors
