@@ -1,6 +1,6 @@
 # Countdown Special Tracker
 
-A python script that emails the user if an item at Countdown is on special.
+A python script that emails the user if an item they choose to monitor at Countdown is on special.
 
 <img src="https://i.imgur.com/tzlDfQZ.png" width="400">
 
