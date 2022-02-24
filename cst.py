@@ -34,8 +34,28 @@ def email(title, full_price, url):
         print('Something went wrong')
 
 
-def find_elements(driver, stock_code, url):
-    # Get the title
+def main():
+    # Selenium config & run
+    options = ChromeOptions()
+    options.add_argument(
+        "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36")
+    options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--window-size=1920,1080")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument('--ignore-certificate-errors')
+    options.add_experimental_option('excludeSwitches', ['enable-logging'])
+
+    url = 'https://shop.countdown.co.nz/shop/productdetails?stockcode=281634&name=alpine-cheese-block-edam'
+    stock_code = re.sub("[^0-9]", "", url)
+
+    driver = webdriver.Chrome(options=options)
+    driver.get(url)
+
+    driver.set_page_load_timeout(15)
+    time.sleep(3)
+
+    # Find elements
     try:
         title = driver.find_element_by_xpath(
             '//*[@id="product-details"]/div[2]/h1').text
@@ -58,9 +78,9 @@ def find_elements(driver, stock_code, url):
     # Get whether the item is on special
     try:
         is_on_special = driver.find_element_by_xpath(
-            '//*[@id="product-details"]/div[2]/div[2]/product-price/div/span[2]').text
+            '//*[@id="product-details"]/div[2]/div[1]/product-price/div/span[2]').text
     except:
-        is_on_special = ''
+        is_on_special = None
 
     if is_on_special:
         print(f'{title} is on special for {full_price}')
@@ -69,29 +89,6 @@ def find_elements(driver, stock_code, url):
         print(f'{title} is not on special')
 
     driver.quit()
-
-
-def main():
-    # Selenium config & run
-    options = ChromeOptions()
-    options.add_argument(
-        "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36")
-    options.add_argument("--headless")
-    options.add_argument("--no-sandbox")
-    options.add_argument("--window-size=1920,1080")
-    options.add_argument("--disable-dev-shm-usage")
-    options.add_argument('--ignore-certificate-errors')
-
-    url = 'https://shop.countdown.co.nz/shop/productdetails?stockcode=281664&name=alpine-cheese-block-tasty'
-    stock_code = re.sub("[^0-9]", "", url)
-
-    driver = webdriver.Chrome(options=options)
-    driver.get(url)
-
-    driver.set_page_load_timeout(15)
-    time.sleep(3)
-
-    find_elements(driver, stock_code, url)
 
 
 if __name__ == '__main__':
