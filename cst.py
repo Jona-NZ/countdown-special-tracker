@@ -38,21 +38,24 @@ def main():
     # Selenium config & run
     options = ChromeOptions()
     options.add_argument(
-        "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36")
-    options.add_argument("--headless")
+        "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.82 Safari/537.36")
+    # options.add_argument("--headless")
     options.add_argument("--no-sandbox")
     options.add_argument("--window-size=1920,1080")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument('--ignore-certificate-errors')
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
 
-    url = 'https://shop.countdown.co.nz/shop/productdetails?stockcode=281634&name=alpine-cheese-block-edam'
+    # outdated user agent or VPN can sometimes prevent countdown app from loading product, causing scrape to fail
+    url = 'https://shop.countdown.co.nz/shop/productdetails?stockcode=281739'
     stock_code = re.sub("[^0-9]", "", url)
 
     driver = webdriver.Chrome(options=options)
     driver.get(url)
 
-    driver.set_page_load_timeout(15)
+    time.sleep(5)
+
+    driver.set_page_load_timeout(250)
     time.sleep(3)
 
     # Find elements
