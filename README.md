@@ -25,7 +25,7 @@ TO_EMAIL = receiving_email_address
 ```
 3. Update the SMTP information in the ```email()``` method. If using Gmail, you must grant less secure apps access to your account under your Google account settings.
 
-4. Download and install the relevant chromedriver.exe and place it into the root folder.
+4. Download and install the relevant chromedriver.exe (that matches your own or servers Chrome version) and place it into the root folder.
 
 
 ## Authors
